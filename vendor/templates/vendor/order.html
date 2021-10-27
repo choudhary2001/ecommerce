@@ -1,0 +1,213 @@
+
+{% extends 'vendor/base.html' %}
+{% block title %} Order -{% endblock %}
+ {% load static %} {% block head %}
+{% load crispy_forms_tags %}
+<style>
+  .profile-page .page-header {
+    height: 200px;
+    background-position: center;
+  }
+
+  .header-filter:after,
+  .header-filter:before {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: block;
+    left: 0;
+    top: 0;
+    content: "";
+  }
+
+  .header-filter::before {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .main-raised {
+    border-radius: 6px;
+  }
+
+  .main {
+    background: #fff;
+    position: relative;
+    z-index: 3;
+  }
+
+  .profile-page .profile {
+    text-align: center;
+  }
+
+  .profile-page .profile img {
+    max-width: 160px;
+    width: 100%;
+    margin: 0 auto;
+    -webkit-transform: translate3d(0, -50%, 0);
+    -moz-transform: translate3d(0, -50%, 0);
+    -o-transform: translate3d(0, -50%, 0);
+    -ms-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+  }
+
+  .img-raised {
+    box-shadow: 0 5px 15px -8px rgba(0, 0, 0, 0.24),
+      0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  }
+
+  .rounded-circle {
+    border-radius: 50% !important;
+  }
+
+  .img-fluid,
+  .img-thumbnail {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .profile-page .description {
+    margin: 1.071rem auto 0;
+    max-width: 600px;
+    color: #999;
+    font-weight: 300;
+  }
+
+  .profile-page .profile-tabs {
+    margin-top: 4.284rem;
+  }
+
+  .tab-space {
+    padding: 20px 0 50px;
+  }
+
+  .profile-page .gallery {
+    margin-top: 3.213rem;
+    padding-bottom: 50px;
+  }
+
+  .profile-page .gallery img {
+    width: 100%;
+    margin-bottom: 2.142rem;
+  }
+
+  .profile-page .profile .name {
+    margin-top: -80px;
+  }
+
+  img.rounded {
+    border-radius: 6px !important;
+  }
+
+  .tab-content > .active {
+    display: block;
+  }
+</style>
+
+{% endblock head %} {% block content %}
+
+<body class="profile-page" style="margin-bottom: 80px !important">
+  <div
+    class="page-header header-filter"
+    data-parallax="true"
+    style="
+      background-image: url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');
+    "
+  ></div>
+  <div class="main main-raised">
+    <div class="container">
+      <div class="profile-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 ml-auto mr-auto">
+              <div class="profile">
+                <div class="avatar">
+                  <img
+                    src="{{request.user.vendor.photo.url}}"
+                    alt="Circle Image"
+                    class="img-raised rounded-circle img-fluid"
+                  />
+                </div>
+                <div class="name">
+                  <h3 class="title" style="margin-top: 15px">
+                    Welcome,
+                     {{request.user.vendor.first_name}}&nbsp;{{request.user.vendor.last_name}}!
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:10px;">
+      	<form class="form-inline my-2 my-lg-0" style=" margin:auto;" action="/ordersearch">
+		      <div class="input-group " style="width:100%;">
+				  <input name="l" type="text" class="form-control shadow" style="border-radius:20px;" placeholder=" search your orders..." />
+			
+				</div>
+		    </form>
+      </div>
+      <div class="box">
+        {% if orders %}
+        <h1 class="text-center">Order Detail</h1>
+           <div
+          class="table-responsive card shadow"
+          style="border-color: blue; border-width: 1px"
+        >
+          <table class="table table-bordered ">
+            <thead>
+              <tr>
+                <th>Invoice</th>
+                <th>Product</th>
+                <th>Image</th>
+                <th>Color</th>
+                <th>Quantity</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Order Date</th>
+                <th>Delivery Boy</th>
+                <th>Order Status</th>
+                <th>Status Edit</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for product in orders %}
+              <tr>
+                <td>{{ product.invoice_no}}</td>
+                <td>{{ product.item}}</td>
+                <td>{{ product.image_tag }}</td>
+                <td>{{ product.color_bg}}</td>
+                <td>{{ product.qty}}</td>
+                <td>{{ product.size}}</td>
+
+                <td>{{ product.price}}</td>
+                <td>{{ product.total}}</td>
+                <td>{{ product.order_dt}}</td>
+                
+                <td>{% if product.deliveryboy != none %}<img style="height:40px;" src="/media/{{product.deliveryboy.photo}}">{% else %}<img style="height:40px;" src="/media/user.png">{% endif %}<br> {{ product.deliveryboy.first_name }}</td>
+                <td>{{ product.order_status}}</td>
+                            <td>
+                <a href="{% url 'edit_order' product.id %}"
+                  ><i class="fa fa-edit">Edit</i></a
+                >
+              </td>  
+                {% endfor %}
+              </tr>
+              
+            </tbody>
+          </table>
+
+          {% else %}
+          <p>You don't have any order yet ....</p>
+          {% endif %}
+          
+        </div>
+
+       
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock %}

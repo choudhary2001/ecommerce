@@ -1,0 +1,28 @@
+
+{% extends "vendor/base.html" %}
+{% block title %}Vendor Login - {% endblock %}
+ {% load static %} {% block content%}
+{% load crispy_forms_tags %}
+    <div class="card mt-4 mb-4 ml-auto mr-auto" style="max-width: 500px; margin-top:80px !important; margin-bottom:60px !important; " >
+        <div class="card-header text-center bg-success text-white">
+        Login Here
+        </div>
+        <div class="card-body">
+        <h5 class="card-title text-center">Welcome Buddy!</h5>
+		
+        <form method="POST">
+            {%csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="btn btn-primary form-control mt-4" value="Login">
+        </form>
+        
+    
+	<p><a style="padding: 10px;
+                          background-color: black;
+                          text-decoration: none;
+                          margin-top:20px;
+                          justify-content: center;" href="{% url 'password_reset' %}" class="card is-info is-uppercase card text-center">Reset Password?</a></p>
+	</div>
+	<p style="">If you are not registred, Please <a href="{% url 'become_vendor' %}">Signup here</a>.</p>
+	</div>
+{% endblock %}

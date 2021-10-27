@@ -1,0 +1,25 @@
+{% for product in data %}
+          <div class="" style=" display: grid;
+    align-content: space-around;
+    padding:5px;
+    justify-content: space-evenly;
+    align-items: stretch;
+    justify-items: stretch;">
+            <div class="card shadow" style="width:150px;  ">
+	  <a href="/product/{{product.slug}}/{{product.id}}">
+	  <img src="/media/{{product.image1}}" class="card-img-top" alt="{{product.title}}" style="height:180px;"></a>
+	  <div class="card-body">
+	    <h5 class="card-text"><a href="/product/{{product.slug}}/{{product.id}}">{{product.title}}</a></h5>
+			<h6> <strike><span class="product-price_not-{{product.id}}">${{product.price_not}}</span></strike>
+			 &nbsp 
+            <span style="color:red;" class="product-discount-{{product.id}}"><small>{{product.discount}}% off</small></span>
+           
+			 &nbsp
+			 <span class="product-price-{{product.id}}">${{product.price}}</span></h6>
+					    
+	  </div>
+
+	</div>
+</div>
+{% endfor %}
+			

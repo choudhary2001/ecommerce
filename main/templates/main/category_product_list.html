@@ -1,0 +1,208 @@
+{% extends 'main/base.html' %} {% block title %}Products List - {% endblock %}
+{% load static %} {% block content %}
+<main
+  class="container my-4"
+  style="
+    margin-top: 60px !important;
+    background-color: white;
+    padding-top: 20px;
+  "
+>
+  <div class="row">
+    <div class="col-md-9">
+      <div
+        class=""
+        style="
+          position: relative;
+          display: -ms-flexbox;
+          display: inline-flex;
+          flex-direction: row;
+          min-width: 0;
+          word-wrap: break-word;
+          background-color: white;
+          border-radius: 0.25rem;
+          flex-wrap: nowrap;
+          align-content: space-around;
+          justify-content: space-evenly;
+          align-items: stretch;
+          width: 100%;
+        "
+      >
+        <!-- Products -->
+        <div class="" style="width: 50%; background-color: white">
+          <h3 class="" style="">Products</h3>
+        </div>
+        <div
+          class=""
+          style="width: 50%; background-color: white; margin-left: 20px"
+          id="filterbutton"
+        >
+          <button
+            style="background-color: blue; position: absolute; right: 0"
+            type="button"
+            class="btn"
+            data-toggle="modal"
+            data-target="#myModal"
+          >
+            <i class="fa fa-filter" style=""></i>
+            Filter
+          </button>
+        </div>
+      </div>
+
+      <div class="row" id="filteredProducts" style="padding: 10px">
+        <p class="ajaxLoader">Loading...</p>
+        <div
+          class="products"
+          style="
+            display: inline-flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            align-content: space-around;
+            justify-content: space-evenly;
+            align-items: stretch;
+          "
+        >
+          {% for product in data %}
+          <div
+            class=""
+            style="
+              padding: 3px;
+              display: grid;
+              align-content: space-around;
+              justify-content: space-evenly;
+              align-items: stretch;
+              justify-items: stretch;
+            "
+          >
+            <div class="card shadow" style="width: 160px">
+              <a href="/product/{{product.slug}}/{{product.id}}"
+                ><img
+                  src="/media/{{product.image1}}"
+                  class="card-img-top"
+                  style="height: 180px"
+                  alt="{{product.title}}"
+              /></a>
+              <div class="card-body" style="">
+                <h5 class="card-text">
+                  <a
+                    href="/product/{{product.slug}}/{{product.id}}"
+                    style="text-decoration: none"
+                    >{{product.title}}</a
+                  >
+                </h5>
+                <h6>
+                  <strike
+                    ><span class="product-price_not-{{product.id}}"
+                      >${{product.price_not}}</span
+                    ></strike
+                  >
+                  &nbsp
+                  <span
+                    style="color: red"
+                    class="product-discount-{{product.id}}"
+                    ><small>{{product.discount}}% off</small></span
+                  >
+                  &nbsp
+                  <span class="product-price-{{product.id}}"
+                    >${{product.price}}</span
+                  >
+                </h6>
+              </div>
+              <div class="">
+                <input
+                  type="hidden"
+                  value="1"
+                  class="form-control product-qty-{{product.id}}"
+                  id="productQty"
+                />
+                <input
+                  type="hidden"
+                  class="product-image-{{product.id}}"
+                  value="{{product.image1}}"
+                />
+                <input
+                  type="hidden"
+                  class="product-id-{{product.id}}"
+                  value="{{product.id}}"
+                />
+                <input
+                  type="hidden"
+                  class="product-title-{{product.id}}"
+                  value="{{product.title}}"
+                />
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <p class="my-4 text-center">
+        <a href="{{load_more_data}}" class="btn btn-dark btn-sm"
+          >Load More <i class="fa fa-sync"></i
+        ></a>
+      </p>
+    </div>
+    <!-- Filters -->
+    <div class="col-md-3" id="filterproduct" style="">
+      <div>{% include 'main/filters.html' %}</div>
+    </div>
+  </div>
+
+  <!-- Trigger the modal with a button -->
+
+  <div class="container" style="background-color: black !important">
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="myModal"
+      role="dialog"
+      style="background-color: black !important"
+    >
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="background-color: black !important">
+          <div class="modal-header" style="">
+            <h4 class="modal-title">Filter</h4>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="col">{% include 'main/filters.html' %}</div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn"
+              data-dismiss="modal"
+              style="margin-bottom: 70px !important; background-color: blue"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script type="text/javascript">
+  if (document.body.offsetWidth < 768) {
+    document.body.style.backgroundColor = "";
+    document.getElementById("filterproduct").innerHTML = `	
+<br>
+
+`;
+  }
+</script>
+<script type="text/javascript">
+  if (document.body.offsetWidth > 768) {
+    document.body.style.backgroundColor = "";
+    document.getElementById("filterbutton").innerHTML = `	
+<br>
+
+`;
+  }
+</script>
+{% endblock %}

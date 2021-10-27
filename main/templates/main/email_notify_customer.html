@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <title>Sopeo</title>
+
+        <style type="text/css">
+            html {
+                width: 100%;
+            }
+
+            body {
+                width: 100%;
+                font-family: Arial;
+                font-size: 14px;
+                background-color: #fff;
+                color: #333;
+            }
+        </style>
+    </head>
+
+    <body>
+        <table width="100%" cellspacing="0" cellpadding="0">
+            <tr>
+                <td><h1>Order confirmation</h1></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h3>Details</h3>
+
+                    <b>Name:</b> {{ order.first_name }} {{ order.last_name }}<br>
+                    <b>Address:</b> {{ order.address }}<br>
+                    <b>Zip and place:</b> {{ order.pincode }} {{ order.city }}<br>
+                    <b>E-mail:</b> {{ order.email }}<br>
+                    <b>Phone:</b> {{ order.mobile }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h3>Products</h3>
+
+                    <table width="100%" cellspacing="0" cellpadding="0">
+                        
+                        <tr>
+                            <td><b>Invoice</b></td>
+                            <td><b>Product</b></td>
+                            <td><b>Image</b></td>
+                            <td><b>Color</b></td>
+                            <td><b>Size</b></td>
+                            <td><b>Quantity</b></td>
+                            <td><b>Price</b></td>
+                            <td><b>Total</b></td>
+                        </tr>
+                        
+                        
+                            <tr>
+                                <td>{{ order.invoice_no }}</td>
+                                <td>{{ order.item }}</td>
+                            <td>
+								<p><img src="/media/{{order.image}}" width="80" /></p>
+								
+							</td>                                
+                                <td>{{ order.color }}</td>
+                                <td>{{ order.size }}</td>
+                                <td>{{ order.qty }}</td>
+                                <td>${{ order.price }}</td>
+                                
+                                <td>${{ order.total }}</td>
+                            </tr>
+                       
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

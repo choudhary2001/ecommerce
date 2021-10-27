@@ -1,0 +1,48 @@
+
+{% extends 'main/base.html' %} {% block title %}Brand List - {% endblock %} {% load static %}
+<style>
+
+</style>
+{% block content %}
+<main
+  class="container my-4"
+  style="
+    margin-top: 70px !important;
+    background-color: white;
+    padding-bottom: 30px;
+  "
+>
+  <!-- Categories -->
+  <h3 class="my-4 border-bottom pb-1 text-center" style="">
+    Shop by Brands
+  </h3>
+  <div class="row">
+    {% if brands %} {% for cat in brands %}
+
+    <div class="col" style="display: inline-flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;">
+      <div class="card shadow">
+        <a href="/brand-product-list/{{cat.id}}"
+          ><img
+            src="/media/{{cat.image}}"
+            class="card-img-top"
+            alt="{{cat.title}}"
+            style="height:100px; width:100px;"
+        /></a>
+        <div class="card-body">
+          <h5 class="card-text">
+            <a href="/brand-product-list/{{cat.id}}">{{cat.title}}</a>
+          </h5>
+        </div>
+      </div>
+    </div>
+    {% endfor %} {% endif %}
+  </div>
+</main>
+{% endblock %}

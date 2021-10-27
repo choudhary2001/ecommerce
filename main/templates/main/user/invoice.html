@@ -1,0 +1,136 @@
+
+
+{% extends 'main/base.html' %}
+{% block title %}Invoice - {% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head %}
+
+
+
+<div class="container bootdey" style="padding-top:80px;">
+<div class="row invoice row-printable">
+         <div class="col-md-10 text-right mb-3">
+                <button class="btn btn-primary" id="download">Download Pdf</button>
+            </div>
+    <div class="card mt-4 mb-4 ml-auto mr-auto shadow" style="padding:30px;" id="invoice">
+        <!-- col-lg-12 start here -->
+        <div class="panel panel-default plain" id="dash_0">
+            <!-- Start .panel -->
+            <div class="panel-body p30">
+                <div class="row">
+                    <!-- Start .row -->
+                    <div class="col-lg-6">
+                        <!-- col-lg-6 start here -->
+                        <div class="invoice-logo"><img width="100" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Invoice logo"></div>
+                        
+                    </div>
+                    <!-- col-lg-6 end here -->
+                    <div class="col-lg-6">
+                        <!-- col-lg-6 start here -->
+                        <div class="invoice-from">
+                        
+                            <ul class="list-unstyled text-right">
+                            <div class="invoice-logo">{{ product.vendor.image_tag }}</div>
+                                <li>{{ product.vendor.shop_Name }}</li>
+                                <li>{{ product.vendor.gst_Number }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                
+                    <!-- col-lg-6 end here -->
+                    <div class="col-lg-12">
+                        <!-- col-lg-12 start here -->
+                        <div class="invoice-details mt25">
+                            <div class="well">
+                                <ul class="list-unstyled mb0">
+                                    <li><strong>{{product.invoice_no}}</strong></li>
+                                    <li><strong>Invoice Date:</strong> {{product.order_dt}}</li>
+                                    <li><strong>Paid Status:</strong> {{pay.payment}}</li>
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="invoice-to mt25">
+                            <ul class="list-unstyled">
+                                <li><strong>Invoiced To</strong></li>
+                                <li>{{address.first_name}} {{address.last_name}}</li>
+                                <li>{{address.mobile}}</li>
+                                <li>{{address.alternate_mobile}}</li>
+                                <li>{{address.email}}</li>
+                                <li>{{address.pincode}}</li>
+                                <li>{{address.landmark}}</li>
+                                <li>{{address.locality}}</li>
+                                <li>{{address.city}}</li>
+                                <li>{{address.state}}</li>
+                            </ul>
+                        </div>
+                        <div class="invoice-items">
+                            <div class="table-responsive" style="outline: none;" tabindex="0">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="per70 text-center">product</th>
+                                            <th class="per70 text-center">Image</th>
+                                            <th class="per70 text-center">Color</th>
+                                            <th class="per70 text-center">Size</th>
+                                            <th class="per5 text-center">Qty</th>
+                                            <th class="per70 text-center">Price</th>
+                                            <th class="per25 text-center">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ product.item }}</td>
+                                            <td class="text-center">{{ product.image_tag }}</td>
+                                            <td class="text-center">{{ product.color_bg }}</td>
+                                            <td class="text-center">{{ product.size }}</td>
+                                            <td class="text-center">{{ product.qty }}</td>
+                                            <td class="text-center">{{ product.price }}</td>
+                                            
+                                            <td class="text-center">{{ product.total }}</td>
+                                        </tr>
+                                     
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- col-lg-12 end here -->
+                </div>
+                <!-- End .row -->
+            
+        </div>
+        <!-- End .panel -->
+    </div>
+    <!-- col-lg-12 end here -->
+</div>
+</div>
+
+
+
+<script type="text/javascript">
+
+window.onload = function () {
+    document.getElementById("download")
+        .addEventListener("click", () => {
+            const invoice = this.document.getElementById("invoice");
+            console.log(invoice);
+            console.log(window);
+            var opt = {
+                margin: 1,
+                filename: 'sopeo.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().from(invoice).set(opt).save();
+        })
+}
+
+</script>
+
+{% endblock %}

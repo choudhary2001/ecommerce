@@ -1,0 +1,42 @@
+{% extends "vendor/base.html" %} {% load static %} {% block content%}
+<div
+  class="container-fluid"
+  style="
+    margin-top: 80px !important;
+    margin-bottom: 80px !important;
+    background-image: url('/media/user.png');
+  "
+>
+  <h1 style="margin-top: 80px !important" class="text-center">Vendor</h1>
+
+  <div
+    class="container"
+    style="
+      height: 100vh;
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+    "
+  >
+    <ul>
+      <a
+        class="card"
+        style="padding: 20px; background-color: black; text-decoration: none"
+        href="{% url 'vendor_login' %}"
+        >Login</a
+      >
+    </ul>
+    <ul>
+      <a
+        class="card"
+        style="padding: 20px; background-color: black; text-decoration: none"
+        href="{% url 'become_vendor' %}"
+        >Sign Up</a
+      >
+    </ul>
+  </div>
+</div>
+{% endblock %}

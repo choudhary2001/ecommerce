@@ -1,0 +1,24 @@
+
+{% extends "vendor/base.html" %}
+{% block title %}Become Vendor -{% endblock %}
+ {% load static %} {% block content%}
+{% load crispy_forms_tags %}
+    <div class="card mt-4 mb-4 ml-auto mr-auto" style="max-width: 500px; margin-top:80px !important;" >
+        <div class="card-header text-center bg-success text-white">
+        Become Vendor
+        </div>
+        <div class="card-body">
+        
+		
+        <form method="POST">
+            {%csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="btn btn-primary form-control mt-4" value="Signup">
+        </form>
+        
+    
+	
+	</div>
+	<p style=" ">If you are registred, Please <a href="{% url 'vendor_login' %}">Login</a>.</p>
+	</div>
+{% endblock %}

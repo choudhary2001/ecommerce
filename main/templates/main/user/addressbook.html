@@ -1,0 +1,196 @@
+
+{% extends 'main/base.html' %}
+{% block title %}Address Book - {% endblock %}
+{% load static %}
+
+{% block head %}
+
+
+
+<style>
+
+.profile-page .page-header {
+    height: 250px;
+    background-position:center;
+}
+
+
+.header-filter:after, .header-filter:before {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: block;
+    left: 0;
+    top: 0;
+    content: "";
+}
+
+.header-filter::before {
+    background: rgba(0,0,0,.5);
+}
+
+.main-raised {
+    
+    border-radius: 6px;
+
+}
+
+.main {
+    background: #FFF;
+    position: relative;
+    z-index: 3;
+}
+
+.profile-page .profile {
+    text-align: center;
+}
+
+.profile-page .profile img {
+    max-width: 160px;
+    width: 100%;
+    margin: 0 auto;
+    -webkit-transform: translate3d(0,-50%,0);
+    -moz-transform: translate3d(0,-50%,0);
+    -o-transform: translate3d(0,-50%,0);
+    -ms-transform: translate3d(0,-50%,0);
+    transform: translate3d(0,-50%,0);
+    	height:auto;
+	max-height:160px;
+}
+
+.img-raised {
+    box-shadow: 0 5px 15px -8px rgba(0,0,0,.24);
+}
+
+.rounded-circle {
+    border-radius: 50%!important;
+}
+
+.img-fluid, .img-thumbnail {
+    max-width: 100%;
+    height: auto;
+}
+
+
+.profile-page .description {
+    margin: 1.071rem auto 0;
+    max-width: 600px;
+    color: #999;
+    font-weight: 300;
+}
+
+
+
+.profile-page .profile-tabs {
+    margin-top: 4.284rem;
+}
+
+
+.tab-space {
+    padding: 20px 0 50px;
+}
+
+.profile-page .gallery {
+    margin-top: 3.213rem;
+    padding-bottom: 50px;
+}
+
+.profile-page .gallery img {
+    width: 100%;
+    margin-bottom: 2.142rem;
+}
+
+.profile-page .profile .name{
+    margin-top: -80px;
+}
+
+img.rounded {
+    border-radius: 6px!important;
+}
+
+.tab-content>.active {
+    display: block;
+}
+
+
+
+</style>
+
+
+
+
+{% endblock head %}
+{% block content %}
+
+<body class="profile-page">
+    
+    <div class="page-header header-filter" data-parallax="true" style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');" style="margin-bottom:30px !important;"></div>
+    <div class="main main-raised">
+		<div class="profile-content">
+            <div class="container-fluid">
+                <div class="row">
+	                <div class="col-md-6 ml-auto mr-auto">
+        	           <div class="profile">
+	                        <div class="avatar">
+							{% if request.user %}
+
+	                            <img src="../../../../../../../../media/user.png" alt="{{request.user.first_name}}" class="img-raised rounded-circle img-fluid">
+	                        {% endif %}	</div>
+	                        <div class="name">
+	                                <h3 class="title" style="margin-top:35px;">Welcome, {{request.user.first_name}}!</h3> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+  	<!-- Featured Products -->
+	<h3 class="my-4 border-bottom pb-1 container">Address Book <a href="{% url 'add-address' %}" class="float-right btn btn-sm btn-success"><i class="fa fa-plus"></i></a></h3>
+		<div class="container">
+	<div class="row" style="margin:auto;">
+		<div class="col-md-3">
+			{% include 'main/user/user-sidebar.html' %}		
+		</div>
+		<div class="col-md-9">
+			<div class="row">
+				{% for add in addbook %}
+				<div class="col-md-4">
+					<div class="card mb-3 {% if add.status %}border-secondary shadow{% endif %} address{{add.id}} address">
+						<div class="card-body">
+
+							<p class="card-text">{{add.first_name}}</p>
+							<p class="card-text">{{add.last_name}}</p>
+							<p class="card-text">{{add.email}}</p>
+							<p class="card-text">{{add.mobile}}</p>
+							<p class="card-text">{{add.alternate_mobile}}</p>
+							<p class="card-text">{{add.address}}</p>                                                        
+							<p class="card-text">{{add.pincode}}</p>
+							<p class="card-text">{{add.landmark}}</p>
+                            <p class="card-text">{{add.locality}}</p>
+                            <p class="card-text">{{add.city}}</p>
+                            <p class="card-text">{{add.state}}</p>
+						</div>
+						{% if add.status %}
+						<div class="card-footer">
+							<i class="fa fa-check-circle text-success check{{add.id}} check"></i>
+							<button style="display:none;" data-address="{{add.id}}" class="btn btn-sm btn-info activate-address btn{{add.id}} actbtn">Activate</button>
+							<a href="{% url 'update-address' add.id %}" class="float-right"><i class="fa fa-edit"></i></a>
+						</div>
+						{% else %}
+						<div class="card-footer footer{{add.id}}">
+							<i style="display:none;" class="fa fa-check-circle text-success check{{add.id}} check"></i>
+							<button data-address="{{add.id}}" class="btn btn-sm btn-info activate-address btn{{add.id}} actbtn">Activate</button>
+							<a href="{% url 'update-address' add.id %}" class="float-right"><i class="fa fa-edit"></i></a>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div></body>
+{% endblock %}

@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="MediaCenter, Template, eCommerce">
+    <meta name="robots" content="all">
+	<title> {% block title %} {% endblock %} Sopeo </title>
+	<!-- Font Awesome -->
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome-free/css/all.min.css' %}" />
+	<!-- Bootstrap 4 CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'bs4/bootstrap.min.css' %}" />
+	<!-- Main Jquery -->
+	<script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
+	<!-- Bootstrap 4 JS -->
+	<script type="text/javascript" src="{% static 'bs4/bootstrap.min.js' %}"></script>
+	<!-- CustomJs -->
+	<link rel="stylesheet" type="text/css" href="{% static 'custom.css' %}" />
+	<script type="text/javascript" src="{% static 'custom.js' %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    {% block head %}
+    {% endblock head %}
+
+</head>
+<body  style="background-color:white !important;">
+	<nav class="navbar navbar-expand-lg navbar-dark shadow" id="navvvvvv"   style="position: fixed; height:70px;
+	background-color:black;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1098;">
+		<div class="container">
+		  <a class="navbar-brand" href="/">Sopeo</a>
+
+		  <div class="collapse navbar-collapse" id="navbarNav">
+		  	<form class="form-inline my-2 my-lg-0" style="width:55%; margin:auto;" action="/search">
+		      <div class="input-group" style="width:100%;">
+				  <input name="q" type="text" class="form-control" style="border-radius:20px;" placeholder=" search your favourite products..." />
+			
+				</div>
+		    </form>
+		    <ul class="navbar-nav ml-auto" >
+		      <li class="nav-item" style="color:white;">
+		        <a class="nav-link text-white"  style="display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;" href="/"><img src="../../../../../media/home.png"><small>Home</small></a>
+		      </li>
+		     
+		      <li class="nav-item" style="color:white;">
+		        <a class="nav-link text-white"  style="display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;" href="{% url 'brands-list'%}"><img src="../../../../../media/category.png"><small>Brand</small></a>
+		      </li>
+		      <li class="nav-item" style="color:white; display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;">
+			   <a class="nav-link text-white" style="display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;" href="{% url 'cart' %}"><img src="../../../../../../../media/add-to-basket.png"><span  style=" position:absolute; margin-left:12px !important; margin-bottom:-15px !important; margin-top:8px;" class="cart-list">{{request.session.cartdata|length}}</span><small>Cart</small></a>
+		      
+		        
+		      </li>
+              <li class="nav-item" style="color:white; display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;">	
+				{% if user.is_staff %}
+				<li class="nav-item" style="color:white;">
+		        <a class="nav-link text-white " href="{% url 'vendor_admin' %}" id="" role="button"  aria-haspopup="true" aria-expanded="false">  
+				<img src="{{request.user.vendor.photo.url}}" alt="Circle Image" class="img-raised rounded-circle img-fluid"  style="width:35px;">
+		        </a>
+				
+				{% else %}
+                
+				{% if user.is_authenticated %}
+				{% if request.user.customer %}
+		        <a class="nav-link text-white"  style="display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;" href="{% url 'profile' %}" id="" role="button"  aria-haspopup="true" aria-expanded="false">  
+				<img style="height:35px;" src="{{request.user.customer.photo.url}}" alt="{{request.user.first_name}}" class="img-raised rounded-circle img-fluid"  style="width:35px;"><small>{{request.user.first_name}}</small>
+		        </a>
+				
+				{% elif request.user %}
+		        <a class="nav-link text-white"  style="display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;" href="{% url 'profile' %}" id="" role="button"  aria-haspopup="true" aria-expanded="false">  
+				<img style="height:35px; " src="../../../../../../../../media/user.png" alt="{{request.user.first_name}}" class="img-raised rounded-circle img-fluid"  style="width:35px;"><small><small>{{request.user.first_name}}</small></small>
+		        </a>
+				{% endif %}
+				{% else %}
+		      
+		        <a class="nav-link "  style=" border-radius:20px;  padding:10px; right:0;"  href="{% url 'account' %}" id="" role="button" data-toggle="" aria-haspopup="true" aria-expanded="false">
+		          <img src="../../../../../../../../media/user.png"> </li>
+		        </a>
+              </li>
+		        {% endif %}
+				{% endif %}
+            
+		      </li>
+		    </ul>
+		  </div>
+		</div>
+		
+    </nav>
+	
+    <main style="padding-bottom:50px !important; background-color:white !important;">
+    {% block content %}
+    {% endblock %}
+
+	</main>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	if (document.body.offsetWidth < 992) {
+		document.body.style.backgroundColor = "";
+		document.getElementById('navvvvvv').innerHTML = `
+
+
+
+	<nav class="navbar navbar-expand-lg navbar-dark " style="position: fixed; 
+	background-color:black;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1098;">
+		<div class="container" style="display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: nowrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    flex-direction: row;
+    align-content: center;">
+		  <a class="navbar-brand"   href="/">Sopeo</a>
+
+		  	<form class="form-inline " style="width:100%; margin:auto;" action="/search">
+		      <div class="input-group"  >
+				  <input name="q" type="text" style="  border-radius:15px;width:100%; margin:auto;" class="form-control" placeholder="search" />
+				  
+				</div>
+		    </form>
+			 <a class="nav-link text-white" href="{% url 'cart' %}"><img src="../../../../../../../media/add-to-basket.png"><span style="  position:absolute; margin-left:-20px !important; margin-bottom:-15px !important; margin-top:8px;" class="cart-list">{{request.session.cartdata|length}}</span></a>
+		      
+			 
+		</div>
+
+	</nav>
+
+	<nav class="shadow" style="position: fixed; width:100%;
+	background-color:white;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	border-radius:50px;
+	margin-bottom:5px;
+    z-index: 1098;">
+		<div class="container-fluid" >
+
+		    <ul class="" style="display: inline-flex; margin:auto; list-style-type: none; width:100%;
+ 	display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    align-content: center;">
+		      <li class="">
+		        <a class="" href="/" style="  border-radius:50px; margin-left:-25px;  padding:10px; left:0; box-shadow: 2px, 2px, 2px, 2px; "><img src="../../../../../../../media/home.png"></a>
+		      </li>
+
+		      <li class="">
+		        <a class="nav-link " href="{% url 'brands-list'%}"  style=" border-radius:20px;  padding:10px;"><img src="../../../../../media/category.png"></a>
+		      </li>
+		      <li class="">
+			   <a class="nav-link text-white" href="{% url 'cart' %}"><img src="../../../../../../../media/add-to-basket.png"> <span  style="  position:absolute; margin-left:-20px !important; margin-bottom:-15px !important; margin-top:8px; color:black;" class="cart-list" >{{request.session.cartdata|length}}</span></a>
+		      
+		        </li>
+				{% if user.is_staff %}
+				<li class="nav-item ">
+		        <a class="nav-link text-white " href="{% url 'vendor_admin' %}" id="" role="button"  aria-haspopup="true" aria-expanded="false">  
+				<img src="{{request.user.vendor.photo.url}}" alt="Circle Image" class="img-raised rounded-circle img-fluid"  style="width:35px;">
+		        </a>
+				
+				{% else %}
+                
+				{% if user.is_authenticated %}
+				
+				{% if request.user.customer %}
+		        <a class="nav-link text-white"  style="display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;" href="{% url 'profile' %}" id="" role="button"  aria-haspopup="true" aria-expanded="false">  
+				<img style="height:35px;" src="{{request.user.customer.photo.url}}" alt="{{request.user.first_name}}" class="img-raised rounded-circle img-fluid"  style="width:35px;">
+		        </a>
+				
+				{% elif request.user %}
+		        <a class="nav-link text-white"  style="display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;" href="{% url 'profile' %}" id="" role="button"  aria-haspopup="true" aria-expanded="false">  
+				<img style="height:35px; " src="../../../../../../../../media/user.png" alt="{{request.user.first_name}}" class="img-raised rounded-circle img-fluid"  style="width:35px;">
+		        </a>
+				{% endif %}
+				{% else %}
+		      
+		        <a class="nav-link "  style=" border-radius:20px;  padding:10px; right:0;"  href="{% url 'account' %}" id="" role="button" data-toggle="" aria-haspopup="true" aria-expanded="false">
+		          <img src="../../../../../../../../media/user.png"> </li>
+		        </a>
+              </li>
+		        {% endif %}
+				{% endif %}
+		        
+
+		      
+		    </ul>
+		</div>
+    </nav>
+
+ 
+`;
+
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

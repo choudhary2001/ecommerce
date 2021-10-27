@@ -1,0 +1,25 @@
+
+{% extends 'vendor/base.html' %}
+{% block title %} Edit Product - {% endblock %}
+ {% load static %} 
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card mt-4 mb-4 ml-auto mr-auto" style="max-width: 800px; margin-top:80px !important; margin-bottom:60px !important; " >
+        <div class="card-header text-center bg-success text-white">
+        Edit Product
+        </div>
+        <div class="card-body">
+        
+		
+        <form method="POST" action="." enctype="multipart/form-data" >
+            {%csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="btn btn-primary form-control mt-4" value="Update">
+        </form>
+        
+    
+	
+	</div>
+	
+	</div>
+{% endblock %}

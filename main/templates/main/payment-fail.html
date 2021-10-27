@@ -1,0 +1,23 @@
+
+{% extends 'main/base.html' %}
+{% block title %}Payment Failed{% endblock %}
+{% load static %}
+{% block content %}
+<main class="container my-4" id="cartList" style="margin-top:80px !important;">
+    <p>Payment Failed</p>
+      <body class="text-center">
+                       <br>
+    <h3> Checksum Verification: {{ message }} </h3> <br>
+    MID: {{ MID }}                                  <br>
+    TXNID: {{ TXNID }}                              <br>
+    ORDERID: {{ ORDERID }}                          <br>
+    BANKTXNID: {{ BANKTXNID }}                      <br>
+    TXNAMOUNT: {{ TXNAMOUNT }}                      <br>
+    CURRENCY: {{ CURRENCY }}                        <br>
+    <h3> STATUS: {{ STATUS }} </h3>                 <br>
+    TXNDATE: {{ TXNDATE }}                          <br>
+    BANKNAME: {{ BANKNAME }}                        <br>
+    BIN_NAME: {{ BIN_NAME }}                        <br>
+</body>
+</main>
+{% endblock %}

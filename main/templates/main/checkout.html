@@ -1,0 +1,138 @@
+
+{% extends 'main/base.html' %} {% block title %}Checkout{% endblock %} {% load static %} {% block content %}{% load crispy_forms_tags %}
+<main class="container my-4" id="cartList" style="margin-top: 80px !important">
+  <!-- Featured Products -->
+  <div class="row">
+    <div class="col-md-9">
+      <h3 class="my-4 border-bottom pb-1" style="">
+        Cart ({{totalitems}})
+      </h3>
+      <table class="table table-bordered" style="">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product_id,item in cart_data.items %}
+          <tr>
+            <td>
+              <img src="/media/{{item.image}}" width="50" />
+              <p>
+                <a href="/product/{{item.title|slugify}}/{{product_id}}"
+                  >{{item.title}}</a
+                >
+              </p>
+            </td>
+            <td>{{item.qty}}</td>
+            <td>$ {{item.price}}</td>
+            <td>$ {% widthratio item.price 1 item.qty %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"></td>
+            <th>Total</th>
+            <th>Rs. {{total_amt}}</th>
+          </tr>
+          {% if totalitems %}
+          <tr>
+            <td colspan="4" align="right">{{form.render}}</td>
+          </tr>
+          {% endif %}
+        </tfoot>
+      </table>
+    </div>
+    <div class="col-md-3">
+      <h3 class="my-4 border-bottom pb-1" style="color: white">
+        Selected Address <button
+            style=""
+            type="button"
+            class="float-right btn btn-sm btn-success"
+            data-toggle="modal"
+            data-target="#myModal"
+          >
+            <i class="fa fa-plus"></i>
+            
+          </button>
+      </h3>
+      <div class="card">
+        <div class="card">
+          {% if address %}
+          <div class="card-body">
+            <p>{{address.address}}</p>
+            <p>{{address.mobile}}</p>
+          </div>
+          {% else %}
+          <div class="card-body">
+            <h6>No any address, Please add address...</h6>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+     
+    </div>
+  </div>
+
+<div
+      class="modal fade"
+      id="myModal"
+      role="dialog"
+      style="background-color: black !important"
+    >
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="background-color: black !important">
+          <div class="modal-header" style="color: white !important">
+            <h4 class="modal-title">Add Address</h4>
+            <button type="button" style="color:white;" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+
+ 
+          <div class="card" style="">
+            <div class="card-header text-center bg-success text-white">
+              Add Address
+            </div>
+            <div class="card-body">
+              {% if msg %}
+              <p class="text-success">{{msg}}</p>
+              {% endif %}
+
+              <form method="post">
+                {% csrf_token %} {{form|crispy}}
+                <tr>
+                  <td colspan="2">
+                    <input type="submit" value="Save" class="btn btn-primary form-control mt-4" />
+                  </td>
+                </tr>
+              </form>
+            </div>
+          </div>
+      
+        
+ </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn"
+              data-dismiss="modal"
+              style="margin-bottom: 70px !important; background-color: blue"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+
+</main>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %} {% load static %} {% block content %}{% load crispy_forms_tags %}
+<main class="container my-4" id="cartList" style="margin-top: 80px !important">
+  <h2 style="color: white" class="tex-center">
+    Order is successfully completed.
+  </h2>
+  <body class="text-center">
+                       <br>
+    <h3> Checksum Verification: {{ message }} </h3> <br>
+    MID: {{ MID }}                                  <br>
+    TXNID: {{ TXNID }}                              <br>
+    ORDERID: {{ ORDERID }}                          <br>
+    BANKTXNID: {{ BANKTXNID }}                      <br>
+    TXNAMOUNT: {{ TXNAMOUNT }}                      <br>
+    CURRENCY: {{ CURRENCY }}                        <br>
+    <h3> STATUS: {{ STATUS }} </h3>                 <br>
+    TXNDATE: {{ TXNDATE }}                          <br>
+    BANKNAME: {{ BANKNAME }}                        <br>
+    BIN_NAME: {{ BIN_NAME }}                        <br>
+</body>
+</main>
+{% endblock %}

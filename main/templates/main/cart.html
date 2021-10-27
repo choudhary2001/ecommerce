@@ -1,0 +1,176 @@
+{% extends 'main/base.html' %} {% block title %}Cart - {% endblock %} {% load
+static %} {% block content %}
+<main
+  class="container my-4"
+  id="cartList"
+  style="padding-top: 50px !important; background-color: white"
+>
+  {% if cart_data.items %}
+  <h3 class="" align="right" style="margin-bottom: -55px">Rs. {{total_amt}}</h3>
+  <h3 class="my-4 border-bottom pb-1" style="">Cart ({{totalitems}})</h3>
+
+  <div class="" id="carttable" style="background-color: white">
+    {% for product_id,item in cart_data.items %}
+    <div class="card shadow" style="border-radius: 30px; margin: 10px">
+      <div
+        style="
+          flex-wrap: wrap !important;
+          justify-content: space-around;
+          align-content: center;
+          align-items: center;
+          display: inline-flex;
+          flex-direction: row;
+        "
+      >
+        <div style="padding-top: 10px">
+          <img
+            src="/media/{{item.image}}"
+            width="50"
+            style="margin-left: 5px"
+          />
+          <p class="text-center"> 
+            <a
+              class="is-uppercase"
+              style="color: black; text-decoration: none"
+              href="/product/{{item.title|slugify}}/{{product_id}}"
+              >{{item.title}}</a
+            >
+          </p>
+        </div>
+        <div style="width: 40%">
+          <input
+            type="number"
+            class="product-qty-{{product_id}}"
+            value="{{item.qty}}"
+            style="width: 30%"
+          />
+          <button
+            class="btn btn-sm btn-primary update-item"
+            data-item="{{product_id}}"
+          >
+            <i class="fa fa-sync"></i>
+          </button>
+          <button
+            class="btn btn-sm btn-danger delete-item"
+            data-item="{{product_id}}"
+          >
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+
+        <div><strike>$ {{item.price_not}}</strike></div>
+        <div>$ {{item.price}}</div>
+        <div>$ {% widthratio item.price 1 item.qty %}</div>
+      </div>
+    </div>
+    {% endfor %}
+    <div style="">
+      {% if totalitems %}
+      <a
+        href="{% url 'checkout_address' %}"
+        class="btn form-control mt-4"
+        style="background-color: blue; color: white; border-radius: 50px"
+        >Checkout <i class="fa fa-long-arrow-alt-right"></i
+      ></a>
+
+      {% endif %}
+    </div>
+  </div>
+
+  {% else %}
+  <h3 class="text-center" style="padding-top: 80px">
+    You have no any Products ...
+  </h3>
+  {% endif %}
+  <script type="text/javascript">
+    if (document.body.offsetWidth < 768) {
+      document.body.style.backgroundColor = "";
+      document.getElementById("carttable").innerHTML = `
+ 
+ {% for product_id,item in cart_data.items %}
+  <div class="card shadow" style="border-radius:10px; margin-left:-5px; margin-right:-5px;  ">
+  <div  style="  
+    flex-wrap: wrap !important;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    display: inline-flex;
+    flex-direction: row;
+    
+">   
+          <div style="padding-top:10px;">
+            <img src="/media/{{item.image}}" width="90" style="margin-left:5px;" />
+            <p class="text-center">
+              <a
+                class="text-center" style="color:black; text-decoration:none;"
+                href="/product/{{item.title|slugify}}/{{product_id}}"
+                >{{item.title}}</a
+              >
+            </p>
+          </div>
+         
+
+          <div style="    flex-wrap: wrap !important;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+   
+    display: inline-flex;
+    flex-direction: column;
+    ">    <div style=" flex-wrap: wrap !important;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    
+    display: inline-flex;
+    flex-direction: row;
+    padding:5px !important;
+    padding-left:1px;">
+            <input
+              type="number"
+              class="product-qty-{{product_id}}"
+              value="{{item.qty}}"
+              style="width: 30% ;"
+            />
+            <button
+              class="btn btn-sm btn-primary update-item"
+              data-item="{{product_id}}"
+            >
+              <i class="fa fa-sync"></i>
+            </button>
+            <button
+              class="btn btn-sm btn-danger delete-item"
+              data-item="{{product_id}}"
+            >
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+          
+          <div style=" flex-wrap: wrap !important;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    width:100%;
+    display: inline-flex;
+    flex-direction: row;
+    padding-bottom:5px !important;
+    padding-left:1px;"><div style="padding-top:5px;"><strike>$ {{item.price_not}}</strike></div>
+         <div> $ {{item.price}}</div>
+         <div> $ {% widthratio item.price 1 item.qty %}</div>
+        </div></div>
+       
+  </div>
+  </div>
+   {% endfor %}
+  <div style="position:fixed; bottom:65px; width:90%;   ">
+	{% if totalitems %}
+		<a href="{% url 'checkout_address' %}" class="btn  form-control mt-4" style="background-color:blue; color:white; border-radius:50px;">Checkout <i class="fa fa-long-arrow-alt-right"></i></a>
+				
+	{% endif %}
+  </div>
+
+`;
+    }
+  </script>
+</main>
+{% endblock %}

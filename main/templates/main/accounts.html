@@ -1,0 +1,115 @@
+
+{% extends "main/base.html" %} {% block title %}account - {% endblock %} {% load static %} {% block content%}
+<div
+  class="container-fluid"
+  style="margin-top: 70px !important; background-color: white"
+>
+  <h1 style="" class="text-center">For Customer</h1>
+
+  <div
+    class="container-fluid"
+    style="
+      height: 30vh;
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+    "
+  >
+    <div
+      class="card shadow"
+      style="
+        padding: 20px;
+        text-decoration: none;
+        width: 40%;
+        background-color: blue;
+        margin-right: 10px;
+      "
+    >
+      <a
+        class="text-center"
+        style="color: white; text-decoration: none"
+        href="{% url 'login' %}"
+        >Login</a
+      >
+    </div>
+    <div
+      class="card shadow"
+      style="
+        padding: 20px;
+        text-decoration: none;
+        width: 40%;
+        background-color: blue;
+        margin-left: 10px;
+      "
+    >
+      <a
+        class="text-center"
+        style="color: white; text-decoration: none"
+        href="{% url 'signup' %}"
+        >Sign Up</a
+      >
+    </div>
+  </div>
+</div>
+<div
+  class="container-fluid"
+  style="
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    background-color: white;
+  "
+>
+  <h1 style="" class="text-center">For Vendor</h1>
+
+  <div
+    class="container-fluid"
+    style="
+      height: 30vh;
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+    "
+  >
+    <div
+      class="card shadow"
+      style="
+        padding: 20px;
+        text-decoration: none;
+        width: 40%;
+        background-color: blue;
+        margin-right: 10px;
+      "
+    >
+      <a
+        class="text-center"
+        style="color: white; text-decoration: none"
+        href="{% url 'vendor_login' %}"
+        >Login</a
+      >
+    </div>
+    <div
+      class="card shadow"
+      style="
+        padding: 20px;
+        text-decoration: none;
+        width: 40%;
+        background-color: blue;
+        margin-left: 10px;
+      "
+    >
+      <a
+        class="text-center"
+        style="color: white; text-decoration: none"
+        href="{% url 'become_vendor' %}"
+        >Sign Up</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %}

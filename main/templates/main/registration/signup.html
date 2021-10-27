@@ -1,0 +1,30 @@
+
+{% extends 'main/base.html' %}
+{% block title %}Signup - {% endblock %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<main class="container my-4" style="margin-top:80px !important; background-color:white;">
+
+	
+    <div class="card mt-4 mb-4 ml-auto mr-auto shadow"  >
+        <div class="card-header text-center bg-success text-white">
+        Signup Here
+        </div>
+        <div class="card-body">
+        <h5 class="card-title">Welcome Buddy!</h5>
+		
+        <form method="POST">
+            {%csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="btn btn-primary form-control mt-4" value="Signup">
+        </form>
+        <a class="btn btn-primary btn-sm"  href="{% url 'google_login' %}" style="width:100%; margin-top:10px; height:50px;" data-index="{{data.id}}" type="button" id=""><img style="width:32px; margin-bott:-2opx;" src="../../../../../media/google.png">  Signup With Google</a>
+        </div>
+		<p style=" padding-bottom:20px;">&nbsp If you are not registred, Please <a href="{% url 'login' %}">Login here</a>.</p>
+		
+    </div>
+
+	
+</main>
+{% endblock %}
